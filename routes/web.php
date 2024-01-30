@@ -14,4 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', FileAssistantController::class)->only(['index', 'store']);
+Route::resource('/', FileAssistantController::class)->only(['index']);
+Route::resource('/', FileAssistantController::class)
+	->middleware('throttle:display-purposes')
+	->only(['store']);
+
+Route::post('/destroy', [FileAssistantController::class, 'destroy'])->name('destroy');

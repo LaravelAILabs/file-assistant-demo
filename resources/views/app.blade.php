@@ -36,23 +36,26 @@
         <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
             <div class="relative flex items-center justify-between w-full space-x-4">
                 <div class="relative text-2xl">
-                    Chat - {{ $conversation_id ?? 'N/A' }}
+                    Chat ({{ $conversation_id ?? 'N/A' }})
                 </div>
 
-                <button type="button"
-                        class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
-                    <span class="font-bold">New session</span>
-                </button>
+                <form method="POST" action="{{ route('destroy') }}">
+                    @csrf
+                    <button type="submit"
+                            class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
+                        <span class="font-bold">New session</span>
+                    </button>
+                </form>
             </div>
         </div>
 
         {{--  Messages --}}
-        <div class="h-full flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+        <div id="messages" class="h-full flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach($messages as $message)
                 @if ($message->role === \LaravelAILabs\FileAssistant\Enums\RoleType::USER->value)
                     <div class="chat-message">
                         <div class="flex items-end justify-end">
-                            <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                            <div class="flex flex-col space-y-2 text-xs max-w-lg mx-2 order-1 items-end">
                                 <div>
                                     <span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
                                         {{ $message->content }}
@@ -64,7 +67,7 @@
                 @else
                     <div class="chat-message">
                         <div class="flex items-end">
-                            <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                            <div class="flex flex-col space-y-2 text-xs max-w-lg mx-2 order-2 items-start">
                                 <div>
                                     <span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
                                         {{ $message->content }}
@@ -82,10 +85,7 @@
             @csrf
 
             <div class="flex flex-row">
-                Uploaded files: <br>
-                @foreach($files as $file)
-                    {{ $file->file_hash }}
-                @endforeach
+                Uploaded files: {{ count($files) }}
             </div>
 
             @if (isset($conversation_id))
@@ -114,4 +114,10 @@
         </form>
     </div>
 </body>
+
+<script>
+    const el = document.getElementById('messages')
+    el.scrollTop = el.scrollHeight
+</script>
+
 </html>

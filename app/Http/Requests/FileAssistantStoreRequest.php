@@ -23,7 +23,7 @@ class FileAssistantStoreRequest extends FormRequest
 	{
 		return [
 			'file' => ['required_without:conversation_id', 'file'],
-			'message' => ['required', 'string', 'min:20', 'max:1000'],
+			'message' => ['required', 'string', 'min:1', 'max:1000'],
 			'conversation_id' => ['numeric', 'gt:0']
 		];
 	}

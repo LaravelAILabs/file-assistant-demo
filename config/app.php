@@ -185,4 +185,5 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+	'rate_limited_for_display_purposes' => env('RATE_LIMITED_FOR_DISPLAY_PURPOSES', false)
 ];

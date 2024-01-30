@@ -38,11 +38,14 @@ class FileAssistantController extends BaseController
 		// save the conversation_id
 		Session::remember('conversation_id', fn () => $dialog->getConversation()->id);
 
-		return view('app', [
-			'conversation_id' => $dialog->getConversation()->id,
-			'messages' => $dialog->getConversation()->messages,
-			'files' => $dialog?->getConversation()?->files,
-			'response' => $dialog->prompt($request->get('message'))
-		]);
+		$dialog->prompt($request->get('message'));
+
+		return redirect()->route('index');
+	}
+
+	function destroy() {
+		Session::forget('conversation_id');
+
+		return redirect()->route('index');
 	}
 }
