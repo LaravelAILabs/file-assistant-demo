@@ -3,7 +3,7 @@
 A demo that highlights the capabilities of the [file-assistant](https://github.com/LaravelAILabs/file-assistant) and [laravel-vector-store](https://github.com/adrianmtanase/laravel-vector-store) packages.
 
 ## Demo link
-[http://file-assistant.laravelailabs.com](http://file-assistant.laravelailabs.com)
+[https://file-assistant.laravelailabs.com](https://file-assistant.laravelailabs.com)
 
 ![AI File Assistant](documentation/demo.png "Laravel AI file assistant")
 
